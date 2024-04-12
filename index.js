@@ -5,6 +5,9 @@ const fs = require('fs');
 const app = express();
 
 // Define a route to read the CSV file
+app.get("/",(req,res)=>{
+    res.send("hii")
+})
 app.get('/allcourse', (req, res) => {
   const results = [];
 
