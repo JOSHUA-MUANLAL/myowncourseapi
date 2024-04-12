@@ -1,17 +1,18 @@
 const express = require('express');
 const csv = require('csv-parser');
 const fs = require('fs');
-app.use(express.static('public'));
-app.use(express.json());
+
 const path=require('path')
 const bodyParser = require('body-parser');
 
 
 
-app.use(bodyParser.urlencoded({ extended: true }));
+
 
 const app = express();
-
+app.use(express.static('public'));
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // Define a route to read the CSV file
 app.get("/",(req,res)=>{
     res.send("hii")
@@ -28,7 +29,7 @@ app.get('/allcourse', (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 3000;
+
 app.listen(8080, () => {
     console.log('Server is running on http://localhost:8080');
   })
