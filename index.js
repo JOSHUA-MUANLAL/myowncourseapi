@@ -1,6 +1,14 @@
 const express = require('express');
 const csv = require('csv-parser');
 const fs = require('fs');
+app.use(express.static('public'));
+app.use(express.json());
+const path=require('path')
+const bodyParser = require('body-parser');
+
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const app = express();
 
