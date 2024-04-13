@@ -8,12 +8,10 @@ app.use(express.static('public'));
 app.use(express.json());
 const bodyParser = require('body-parser');
 
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/',(req,res)=>{
-  res.send("Hi please use /getcourse")
+  res.send("Hi please use `/getcourse`")
 })
 
 // Define a route to read the CSV file
