@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 // Define a route to read the CSV file
 app.get('/getcourse', (req, res) => {
   if(results){
-    res.json(results);
+    res.status(200).json(results);
   }
 
 });
@@ -62,7 +62,7 @@ app.get('/getcourse/subject=:subject&level=:level',(req,res)=>{
   })
 
   if(result_sub){
-    res.json(result_sub)
+    res.status(200).json(result_sub)
   }else{
     res.json({message:"no result found"})
   }
