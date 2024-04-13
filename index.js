@@ -15,17 +15,6 @@ app.get('/',(req,res)=>{
 })
 
 // Define a route to read the CSV file
-app.get('/getcourse', (req, res) => {
-  const results = [];
-
-  // Read the CSV file
-  fs.createReadStream('udemy_courses.csv')
-    .pipe(csv())
-    .on('data', (data) => results.push(data))
-    .on('end', () => {
-      res.json(results); // Send the CSV data as JSON
-    });
-});
 
 
 app.listen(8080, () => {
