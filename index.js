@@ -1,39 +1,43 @@
 const express = require('express');
 const csv = require('csv-parser');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
-const path=require('path')
+const bodyParser = require('body-parser');
+
 app.use(express.static('public'));
 app.use(express.json());
-const bodyParser = require('body-parser');
-app.use(bodyParser.json()); 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
-try{
-  app.get('/',(req,res)=>{
-    res.send("Hi please use `/getcourse`")
-  })
-  
-  // Define a route to read the CSV file
-  app.get('/getcourse', (req, res) => {
-    const results = [];
-  
-    // Read the CSV file
-    fs.createReadStream('udemy_courses.csv')
-      .pipe(csv())
-      .on('data', (data) => results.push(data))
-      .on('end', () => {
-        res.json(results); // Send the CSV data as JSON
-      });
+app.get('/', (req, res) => {
+  res.send("Hi please use `/getcourse`")
+});
+
+// Define a route to read the CSV file
+app.get('/getcourse', (req, res) => {
+  const results = [];
+
+  // Read the CSV file
+  const fileStream = fs.createReadStream(path.join(__dirname, 'udemy_courses.csv'));
+  fileStream.on('error', (err) => {
+    console.error('Error reading CSV file:', err);
+    res.status(500).send('Internal Server Error');
   });
-  
-  
-  app.listen(8080, () => {
-    console.log('Server is running on http://localhost:8080');
-  })
-  
-}catch(error){
-  console.log("error", error)
-}
+
+  fileStream.pipe(csv())
+    .on('data', (data) => results.push(data))
+    .on('end', () => {
+      console.log('CSV parsing successful');
+      res.json(results); // Send the CSV data as JSON
+    })
+    .on('error', (err) => {
+      console.error('Error parsing CSV:', err);
+      res.status(500).send('Internal Server Error');
+    });
+});
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
