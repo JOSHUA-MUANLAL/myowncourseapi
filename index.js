@@ -7,6 +7,7 @@ const path=require('path')
 app.use(express.static('public'));
 app.use(express.json());
 const bodyParser = require('body-parser');
+app.use(bodyParser.json()); 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
