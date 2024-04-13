@@ -9,6 +9,25 @@ const bodyParser = require('body-parser');
 app.use(express.static('public'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const results = [];
+
+  // Read the CSV file
+  const fileStream = fs.createReadStream(path.join(__dirname, 'udemy_courses.csv'));
+  fileStream.on('error', (err) => {
+    console.error('Error reading CSV file:', err);
+   
+  });
+
+  fileStream.pipe(csv())
+    .on('data', (data) => results.push(data))
+    .on('end', () => {
+      console.log('CSV parsing successful');
+    
+    })
+    .on('error', (err) => {
+      console.error('Error parsing CSV:', err);
+      
+    });
 
 app.get('/', (req, res) => {
   res.send("Hi please use `/getcourse`")
@@ -16,26 +35,39 @@ app.get('/', (req, res) => {
 
 // Define a route to read the CSV file
 app.get('/getcourse', (req, res) => {
-  const results = [];
+  if(results){
+    res.json(results);
+  }
 
-  // Read the CSV file
-  const fileStream = fs.createReadStream(path.join(__dirname, 'udemy_courses.csv'));
-  fileStream.on('error', (err) => {
-    console.error('Error reading CSV file:', err);
-    res.status(500).send('Internal Server Error');
-  });
-
-  fileStream.pipe(csv())
-    .on('data', (data) => results.push(data))
-    .on('end', () => {
-      console.log('CSV parsing successful');
-      res.json(results); // Send the CSV data as JSON
-    })
-    .on('error', (err) => {
-      console.error('Error parsing CSV:', err);
-      res.status(500).send('Internal Server Error');
-    });
 });
+app.get('/getcourse/filter',(req,res)=>{
+
+  let subject="Graphic Design"
+  let level="All Levels"
+  res.redirect(`/getcourse/subject=${subject}&level=${level}`)
+})
+
+app.get('/getcourse/subject=:subject&level=:level',(req,res)=>{
+  let subject=req.params.subject;
+  let level=req.params.level;
+ 
+  let result_sub=[]
+
+  results.forEach(newresult=>{
+    if(newresult.subject==subject && newresult.level==level){
+      result_sub.push(newresult)
+      
+    }
+
+  })
+
+  if(result_sub){
+    res.json(result_sub)
+  }else{
+    res.json({message:"no result found"})
+  }
+
+})
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
