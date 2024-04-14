@@ -2,6 +2,7 @@ const express = require('express');
 const csv = require('csv-parser');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -9,6 +10,7 @@ const bodyParser = require('body-parser');
 app.use(express.static('public'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 const results = [];
 
   // Read the CSV file
