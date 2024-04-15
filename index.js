@@ -118,8 +118,8 @@ app.get('/getcourse/level=:sub',(req,res)=>{
 
   })
 
-  if(result_level){
-    res.status(200).json(result_level)
+  if(result_sub){
+    res.status(200).json(result_sub)
   }else{
     res.json({message:"no result found"})
   }
