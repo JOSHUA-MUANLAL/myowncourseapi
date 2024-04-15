@@ -111,7 +111,7 @@ app.get('/getcourse/level=:sub',(req,res)=>{
   let result_sub=[]
 
   results.forEach(newresult=>{
-    if(newresult.subject==level){
+    if(newresult.subject==sub){
       result_sub.push(newresult)
       
     }
