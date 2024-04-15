@@ -44,8 +44,8 @@ app.get('/getcourse', (req, res) => {
 });
 app.get('/getcourse/filter',(req,res)=>{
 
-  let subject="Graphic Design"
-  let level="All Levels"
+  let subject=req.body.subject;
+  let level=req.body.level
   res.redirect(`/getcourse/subject=${subject}&level=${level}`)
 })
 
