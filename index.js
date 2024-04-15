@@ -84,7 +84,7 @@ app.post('/getcourse/level',(req,res)=>{
   })
 
   if(result_level){
-    res.status(200).json(level)
+    res.status(200).json(result_level)
   }else{
     res.json({message:"no result found"})
   }
