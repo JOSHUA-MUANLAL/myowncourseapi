@@ -42,7 +42,7 @@ app.get('/getcourse', (req, res) => {
   }
 
 });
-app.get('/getcourse/filter',(req,res)=>{
+app.post('/getcourse/filter',(req,res)=>{
 
   let subject=req.body.subject;
   let level=req.body.level
