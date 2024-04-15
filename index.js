@@ -78,6 +78,7 @@ app.post('/getcourse/level',(req,res)=>{
 })
 
 app.get('/getcourse/level=:level',(req,res)=>{
+   res.setHeader('Cache-Control', 'no-store');
   let level=req.params.level
   let result_level=[]
 
