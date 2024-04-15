@@ -100,8 +100,8 @@ app.get('/getcourse/level=:level',(req,res)=>{
 
 
 app.post('/getcourse/sub',(req,res)=>{
-  let level=req.body.sub;
-   res.redirect(`/getcourse/sub=${level}`)
+  let sub=req.body.sub;
+   res.redirect(`/getcourse/sub=${sub}`)
   
 })
 
