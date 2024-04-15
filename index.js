@@ -98,6 +98,34 @@ app.get('/getcourse/level=:level',(req,res)=>{
 
 })
 
+
+app.post('/getcourse/sub',(req,res)=>{
+  let level=req.body.sub;
+   res.redirect(`/getcourse/level=${level}`)
+  
+})
+
+app.get('/getcourse/level=:sub',(req,res)=>{
+   res.setHeader('Cache-Control', 'no-store');
+  let sub=req.params.sub
+  let result_sub=[]
+
+  results.forEach(newresult=>{
+    if(newresult.subject==level){
+      result_sub.push(newresult)
+      
+    }
+
+  })
+
+  if(result_level){
+    res.status(200).json(result_level)
+  }else{
+    res.json({message:"no result found"})
+  }
+
+})
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
