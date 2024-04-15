@@ -101,11 +101,11 @@ app.get('/getcourse/level=:level',(req,res)=>{
 
 app.post('/getcourse/sub',(req,res)=>{
   let level=req.body.sub;
-   res.redirect(`/getcourse/level=${level}`)
+   res.redirect(`/getcourse/sub=${level}`)
   
 })
 
-app.get('/getcourse/level=:sub',(req,res)=>{
+app.get('/getcourse/sub=:sub',(req,res)=>{
    res.setHeader('Cache-Control', 'no-store');
   let sub=req.params.sub
   let result_sub=[]
