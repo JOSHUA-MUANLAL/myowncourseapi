@@ -71,6 +71,26 @@ app.get('/getcourse/subject=:subject&level=:level',(req,res)=>{
 
 })
 
+app.post('/getcourse/level',(req,res)=>{
+  let level=req.body.level;
+  let result_level=[]
+
+  results.forEach(newresult=>{
+    if(newresult.level==level){
+      result_level.push(newresult)
+      
+    }
+
+  })
+
+  if(result_level){
+    res.status(200).json(level)
+  }else{
+    res.json({message:"no result found"})
+  }
+
+})
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
