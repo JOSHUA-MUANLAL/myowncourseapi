@@ -73,6 +73,12 @@ app.get('/getcourse/subject=:subject&level=:level',(req,res)=>{
 
 app.post('/getcourse/level',(req,res)=>{
   let level=req.body.level;
+   res.redirect(`/getcourse/level=${level}`)
+  
+})
+
+app.get('/getcourse/level=:level',(req,res)=>{
+  let level=req.params.level
   let result_level=[]
 
   results.forEach(newresult=>{
